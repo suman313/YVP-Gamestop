@@ -4,9 +4,12 @@ import Layout from "../components/Layout";
 import { collection, getDocs } from "firebase/firestore";
 import fireDp from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   const [products, setproducts] = useState([]);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.CartReducer);
   const navigate = useNavigate();
   useEffect(() => {
     getdata();
@@ -23,11 +26,16 @@ export default function Home() {
     });
     setproducts(allProducts);
   }
-
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+  function addToCart(product) {
+    dispatch({ type: "ADD_TO_CART", payload: product });
+  }
   return (
     <Layout>
-      <div className="container">
-        <div className="row">
+      <div className="container pt-5">
+        <div className="row pt-5">
           {products.map((item) => {
             return (
               <div className="col-md-4">
@@ -39,7 +47,13 @@ export default function Home() {
                   </div>
                   <div className="product-actions">
                     <h2>$ {item.price}</h2>
-                    <button>ADD TO CART</button>
+                    <button
+                      onClick={() => {
+                        addToCart(item);
+                      }}
+                    >
+                      ADD TO CART
+                    </button>
                     <button
                       onClick={() => {
                         navigate(`/productInfo/${item.id}`);

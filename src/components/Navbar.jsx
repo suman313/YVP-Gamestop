@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { FaCartPlus } from "react-icons/fa";
 function Navbar() {
+  const { cartItems } = useSelector((state) => state.CartReducer);
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-10">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             YVP Gamestop
@@ -38,8 +40,9 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Cart
+                <Link className="nav-link" to="/cart">
+                  <FaCartPlus />
+                  <span className="cart-counter">{cartItems.length}</span>
                 </Link>
               </li>
             </ul>
