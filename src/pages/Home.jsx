@@ -26,11 +26,13 @@ export default function Home() {
     });
     setproducts(allProducts);
   }
+  //at start store cartItems in local storage to keep track later, useEffect will store new state of cartItems at each document loading
+  //this step is useful to update the cart number in navigation bar each time we update the cart
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
   function addToCart(product) {
-    dispatch({ type: "ADD_TO_CART", payload: product });
+    dispatch({ type: "ADD_TO_CART", payload: { ...product, qty: 1 } });
   }
   return (
     <Layout>

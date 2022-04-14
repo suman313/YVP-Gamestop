@@ -1,9 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
 function Navbar() {
   const { cartItems } = useSelector((state) => state.CartReducer);
+  const navigate = useNavigate();
+  const userEmail = localStorage.getItem("userEmail");
+  const onlyUser = userEmail.split("@")[0];
+  const [itemQuantity, setItemQuantity] = useState(0);
+  //counting the cart Items
+  useEffect(() => {
+    let count = 0;
+    cartItems.forEach((item) => {
+      count += item.qty;
+    });
+    setItemQuantity(count);
+  }, [cartItems]);
+
+  function logout() {
+    localStorage.removeItem("userEmail");
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-10">
@@ -26,7 +42,7 @@ function Navbar() {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
-                  Home
+                  {onlyUser}
                 </Link>
               </li>
               <li className="nav-item">
@@ -35,14 +51,20 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link
+                  className="nav-link"
+                  onClick={() => {
+                    logout();
+                  }}
+                  to="/login"
+                >
                   Logout
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/cart">
                   <FaCartPlus />
-                  <span className="cart-counter">{cartItems.length}</span>
+                  <span className="cart-counter">{itemQuantity}</span>
                 </Link>
               </li>
             </ul>
