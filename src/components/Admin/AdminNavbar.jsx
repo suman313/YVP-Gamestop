@@ -2,20 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
-function Navbar() {
-  const { cartItems } = useSelector((state) => state.CartReducer);
+function AdminNavbar() {
   const navigate = useNavigate();
-  const userEmail = localStorage.getItem("userEmail");
-  const onlyUser = userEmail.split("@")[0];
-  const [itemQuantity, setItemQuantity] = useState(0);
-  //counting the cart Items
-  useEffect(() => {
-    let count = 0;
-    cartItems.forEach((item) => {
-      count += item.qty;
-    });
-    setItemQuantity(count);
-  }, [cartItems]);
 
   function logout() {
     localStorage.removeItem("userEmail");
@@ -42,12 +30,12 @@ function Navbar() {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
-                  {onlyUser}
+                  Admin
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/orders">
-                  Orders
+                <Link className="nav-link" to="/addProduct">
+                  Add Product
                 </Link>
               </li>
               <li className="nav-item">
@@ -61,12 +49,6 @@ function Navbar() {
                   Logout
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/cart">
-                  <FaCartPlus />
-                  <span className="cart-counter">{itemQuantity}</span>
-                </Link>
-              </li>
             </ul>
           </div>
         </div>
@@ -75,4 +57,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default AdminNavbar;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import fireDp from "../firebaseConfig";
+import fireDp from "../../firebaseConfig";
 
 function AddProducts() {
   const [category, setCategory] = useState("");

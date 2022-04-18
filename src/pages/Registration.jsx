@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 export default function Registration() {
   const [email, setEmail] = useState("");
@@ -91,6 +92,9 @@ export default function Registration() {
               Register
             </button>
             <div className="err-msg"> {err}</div>
+            <div className="goToLogin">
+              <Link to="/login"> Already Registered? Login Here!</Link>
+            </div>
           </div>
         </div>
       </div>

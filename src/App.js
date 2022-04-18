@@ -13,7 +13,10 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import ProductInfo from "./pages/ProductInfo";
 import "./stylesheet/products.css";
-import AddProducts from "./pages/AddProducts";
+import AddProducts from "./pages/Admin/AddProducts";
+import Admin from "./pages/Admin/Admin";
+import OrderSuccess from "./pages/OrderSuccess";
+import Orders from "./pages/Orders";
 
 function App() {
   return (
@@ -37,7 +40,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/login" element={<Login />} />
           <Route
             path="/productInfo/:productId"
             element={
@@ -46,8 +48,41 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="register" element={<Registration />} />
-          <Route path="addProduct" element={<AddProducts />} />
+          <Route
+            path="/orderSuccess"
+            element={
+              <ProtectedRoute>
+                <OrderSuccess />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+          {/* Admin panel */}
+          <Route
+            path="/addProduct"
+            element={
+              <CheckForAdmin>
+                <AddProducts />
+              </CheckForAdmin>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <CheckForAdmin>
+                <Admin />
+              </CheckForAdmin>
+            }
+          />
         </Routes>
       </Router>
     </>
@@ -60,5 +95,12 @@ export const ProtectedRoute = ({ children }) => {
     return children;
   } else {
     return <Navigate to="/login" />;
+  }
+};
+export const CheckForAdmin = ({ children }) => {
+  if (localStorage.getItem("userEmail") == "admin@gmail.com") {
+    return children;
+  } else {
+    return <Navigate to="/" />;
   }
 };

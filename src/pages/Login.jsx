@@ -15,7 +15,13 @@ export default function Login() {
       .then((userCredential) => {
         const user = userCredential.user;
         localStorage.setItem("userEmail", user.email);
-        navigate("/");
+        // if login is from admin then redirect to admin page
+        if (user.email === "admin@gmail.com") {
+          alert("Admin Login");
+          navigate("/admin");
+        }
+        // else enter as a normal user
+        else navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
