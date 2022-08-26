@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/YVP-Gamestop/static/css/main.6b31638e.css",
+    "main.js": "/YVP-Gamestop/static/js/main.de306911.js",
+    "static/js/787.0644c122.chunk.js": "/YVP-Gamestop/static/js/787.0644c122.chunk.js",
+    "index.html": "/YVP-Gamestop/index.html",
+    "main.6b31638e.css.map": "/YVP-Gamestop/static/css/main.6b31638e.css.map",
+    "main.de306911.js.map": "/YVP-Gamestop/static/js/main.de306911.js.map",
+    "787.0644c122.chunk.js.map": "/YVP-Gamestop/static/js/787.0644c122.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6b31638e.css",
+    "static/js/main.de306911.js"
+  ]
+}
